@@ -1,13 +1,14 @@
 from machine import ADC
 from machine import Pin, I2C
-# from ssd1306 import SSD1306_I2C
+from ssd1306 import SSD1306_I2C
 import framebuf
+from time import sleep
 
 WIDTH  = 128                                            # oled display width
 HEIGHT = 32                                             # oled display height
 
-SDA = 8
-SCL = 9
+SDA = 8 # GPI0 8 is Pin 11
+SCL = 9 # GPIO 9 is Pin 12
 i2c = I2C(0, scl=Pin(SCL), sda=Pin(SDA), freq=200000)       # Init I2C using pins GP8 & GP9 (default I2C0 pins)
 print("I2C Address      : "+hex(i2c.scan()[0]).upper()) # Display device address
 print("I2C Configuration: "+str(i2c))                   # Display I2C config
@@ -34,11 +35,17 @@ oled.text("Pico",5,15)
 # Finally update the oled display so the image & text is displayed
 oled.show()
 
+while True:
+    sleep(5)
+    temp_sensor = ADC(TEMP_ADC)
+    temperature = temp_sensor.read_u16()
+    to_volts = 3.3 / 65535
+    temperature = temperature * to_volts
+    celsius_degrees = 27 - (temperature - 0.706) / 0.001721
+    fahrenheit_degrees = celsius_degrees * 9 / 5 + 32
+    print(fahrenheit_degrees)
+    oled.fill(0)
 
-temp_sensor = ADC(TEMP_ADC)
-temperature = temp_sensor.read_u16()
-to_volts = 3.3 / 65535
-temperature = temperature * to_volts
-celsius_degrees = 27 - (temperature - 0.706) / 0.001721
-fahrenheit_degrees = celsius_degrees * 9 / 5 + 32
-print(fahrenheit_degrees)
+# Blit the image from the framebuffer to the oled display
+    oled.blit(fb, 96, 0)
+    oled.text(str(fahrenheit_degrees),5,5)
