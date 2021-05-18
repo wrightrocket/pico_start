@@ -5,8 +5,8 @@ import framebuf
 from time import sleep
 
 WIDTH  = 128                                            # oled display width
-HEIGHT = 32                                             # oled display height
-
+HEIGHT = 64                                             # oled display height
+TEMP_ADC = 4
 SDA = 8 # GPI0 8 is Pin 11
 SCL = 9 # GPIO 9 is Pin 12
 i2c = I2C(0, scl=Pin(SCL), sda=Pin(SDA), freq=200000)       # Init I2C using pins GP8 & GP9 (default I2C0 pins)

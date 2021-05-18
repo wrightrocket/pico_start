@@ -2,7 +2,7 @@
 
 from micropython import const
 import framebuf
-
+import machine
 
 # register definitions
 SET_CONTRAST = const(0x81)
