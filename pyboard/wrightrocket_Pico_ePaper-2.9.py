@@ -1,5 +1,5 @@
 # *****************************************************************************
-# * | File        :	  Pico_ePaper-2.9.py
+# * | File        :   Pico_ePaper-2.9.py
 # * | Author      :   Waveshare team
 # * | Function    :   Electronic paper driver
 # * | Info        :
@@ -218,7 +218,7 @@ class EPD_2in9(framebuf.FrameBuffer):
 
         self.send_command(DISPLAY_UPDATE_CONTROL_1); #  Display update control
         self.send_data(0x00);
-        self.send_data(0x80);	
+        self.send_data(0x80);   
     
         self.SetCursor(0, 0);
         self.ReadBusy();
@@ -352,7 +352,7 @@ class EPD_2in9(framebuf.FrameBuffer):
         self.send_data(0x00);  
         self.send_data(0x00);  
         self.send_data(0x00); 
-        self.send_data(0x00);  	
+        self.send_data(0x00);   
         self.send_data(0x40);  
         self.send_data(0x00);  
         self.send_data(0x00);   
@@ -439,7 +439,7 @@ if __name__=='__main__':
         fb.circle(round(EPD_HEIGHT/2-LEFT_MARGIN/2), round(EPD_WIDTH/2+TOP_MARGIN/2), RADIUS*ring, BLACK)
     
     epd.display(buffer)
-    print(buffer)
+#   print(buffer)
 #     
 #     epd.rect(10, 180, 50, 80, 0x00)
 #     epd.fill_rect(70, 180, 50, 80, 0x00)
